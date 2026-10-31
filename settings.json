@@ -1,0 +1,4 @@
+{
+  "task.allowAutomaticTasks": "on",
+  "python.terminal.useEnvFile": true
+}

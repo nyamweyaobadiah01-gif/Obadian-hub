@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101116">
+    <meta name="description" content="Private Obadian Hub administrator console.">
+    <title>Admin — Obadian Hub</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/admin.js" defer></script>
+  </head>
+  <body class="admin-page">
+    <main class="admin-wrap admin-console-wrap">
+      <header class="admin-topbar">
+        <a class="brand" href="/" aria-label="Obadian Hub home"><span class="brand-mark">O</span><span>obadian<span class="brand-light">hub</span></span></a>
+        <a class="back-link" href="/">← Back to workspace</a>
+      </header>
+      <div class="notice admin-notice" id="admin-notice" role="status" aria-live="polite" hidden></div>
+      <section class="admin-card" id="admin-login-view">
+        <span class="eyebrow">PRIVATE AREA</span>
+        <h1>Administrator sign-in</h1>
+        <p>Sign in with the admin credentials configured on the server.</p>
+        <div class="admin-config-note" id="admin-config-note" hidden></div>
+        <form class="admin-form" id="admin-login-form">
+          <label for="admin-email">Administrator email</label>
+          <input id="admin-email" name="email" type="email" autocomplete="username" maxlength="254" required>
+          <label for="admin-password">Administrator password</label>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" maxlength="256" required>
+          <button class="primary-button" id="admin-submit" type="submit"><span id="admin-submit-label">Sign in securely</span><span class="button-arrow" aria-hidden="true">→</span></button>
+        </form>
+        <p class="admin-footer">Student passwords and private file contents are never displayed in this console.</p>
+      </section>
+      <section class="admin-console" id="admin-dashboard-view" hidden>
+        <button type="button" class="admin-sidebar-backdrop" id="admin-sidebar-backdrop" aria-label="Close admin navigation" tabindex="-1"></button>
+        <aside class="admin-sidebar" id="admin-sidebar">
+          <a class="brand admin-brand" href="/" aria-label="Obadian Hub home"><span class="brand-mark">O</span><span>obadian<span class="brand-light">hub</span></span></a>
+          <p class="admin-nav-caption">ADMINISTRATION</p>
+          <nav class="admin-nav" aria-label="Admin sections">
+            <button type="button" class="admin-nav-link active" data-page="overview"><span>◫</span>Overview</button>
+            <button type="button" class="admin-nav-link" data-page="students"><span>♙</span>Students<span class="admin-pending-badge" id="pending-approval-badge" aria-label="Pending approvals" hidden></span></button>
+            <button type="button" class="admin-nav-link" data-page="support"><span>✉</span>Support inbox</button>
+            <button type="button" class="admin-nav-link" data-page="announcements"><span>◉</span>Announcements</button>
+            <button type="button" class="admin-nav-link" data-page="academic"><span>▤</span>Academic data</button>
+            <button type="button" class="admin-nav-link" data-page="storage"><span>▧</span>Storage</button>
+            <button type="button" class="admin-nav-link" data-page="audit"><span>◷</span>Audit &amp; security</button>
+            <button type="button" class="admin-nav-link" data-page="data"><span>⇩</span>Data tools</button>
+          </nav>
+          <div class="admin-side-footer"><span>Private administrator area</span><button class="admin-logout" id="admin-logout" type="button">Sign out</button></div>
+        </aside>
+        <div class="admin-main">
+          <header class="admin-console-topbar">
+            <button type="button" id="admin-menu-toggle" class="admin-menu-toggle" aria-label="Open admin navigation" aria-expanded="false" aria-controls="admin-sidebar">☰</button>
+            <div><span class="eyebrow">OBADIAN HUB / ADMIN</span><h1 id="admin-page-title">Overview</h1></div>
+            <div class="admin-top-actions"><button class="admin-logout" id="admin-theme-toggle" type="button" aria-label="Switch theme">☼</button><button class="admin-logout" id="admin-refresh" type="button">Refresh</button></div>
+          </header>
+          <div class="admin-page-content">
+            <section class="admin-page-panel" data-panel="overview">
+              <p class="admin-page-description">A live view of student accounts, engagement, support, and service health.</p>
+              <div class="admin-metric-grid" id="overview-metrics" aria-live="polite"></div>
+              <div class="admin-overview-grid">
+                <article class="admin-section"><h2>Student sign-ups</h2><p>New accounts by day, past week.</p><canvas id="signup-chart" height="180" aria-label="Student sign-ups over time"></canvas></article>
+                <article class="admin-section"><h2>Daily active students</h2><p>Students with activity recorded by day.</p><canvas id="active-chart" height="180" aria-label="Daily active students"></canvas></article>
+                <article class="admin-section admin-health-section"><h2>System health</h2><div id="system-health" class="admin-data-list"></div></article>
+              </div>
+            </section>
+            <section class="admin-page-panel" data-panel="students" hidden>
+              <p class="admin-page-description">Search accounts and manage access. Account deletion removes associated records permanently.</p>
+              <div class="admin-toolbar"><label class="admin-search-label">Search students<input id="student-search" type="search" placeholder="Email, school, course…"></label><label>Verification<select id="student-verified-filter"><option value="">All</option><option value="true">Verified</option><option value="false">Unverified</option></select></label><label>Status<select id="student-status-filter"><option value="">All statuses</option><option value="pending">Awaiting approval</option><option value="online">Active</option><option value="offline">Signed out</option><option value="suspended">Suspended</option></select></label></div>
+              <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Email</th><th>School / course</th><th>Year</th><th>Verified</th><th>Status</th><th>Last active</th><th>Storage</th><th>Details</th></tr></thead><tbody id="student-rows"></tbody></table></div>
+              <div class="admin-pagination"><span id="student-page-info">Loading students…</span><div><button id="student-prev" class="admin-logout" type="button">Previous</button><button id="student-next" class="admin-logout" type="button">Next</button></div></div>
+              <article class="admin-section admin-student-detail" id="student-detail"><h2>Student details</h2><p>Select an account to see its profile and available actions.</p></article>
+            </section>
+            <section class="admin-page-panel" data-panel="support" hidden>
+              <p class="admin-page-description">Read messages students sent to support. Student school-file contents are not accessible here.</p>
+              <article class="admin-section"><h2>Support response time</h2><p id="support-response-time">Loading…</p></article>
+              <div class="admin-message-list" id="support-messages"></div>
+            </section>
+            <section class="admin-page-panel" data-panel="announcements" hidden>
+              <p class="admin-page-description">Send a hub notification now or schedule it for later. Scheduled announcements are delivered while the server is running.</p>
+              <article class="admin-section"><h2>Create announcement</h2>
+                <form class="admin-form admin-grid-form" id="announcement-form">
+                  <label>Audience<select name="audience"><option value="all">All students</option><option value="student">One student</option><option value="course">Course</option><option value="year">Year of study</option><option value="school">School</option></select></label>
+                  <label>Target value<input name="target" maxlength="254" placeholder="Student email, course, school, or year"></label>
+                  <label class="admin-form-wide">Message<textarea name="message" rows="4" maxlength="1000" required></textarea></label>
+                  <label>Send at (optional)<input name="scheduledAt" type="datetime-local"></label>
+                  <button class="admin-logout" type="submit">Schedule / send</button>
+                </form>
+              </article>
+              <article class="admin-section"><h2>Announcement history</h2><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Audience</th><th>Target</th><th>Message</th><th>Scheduled</th><th>Status</th></tr></thead><tbody id="announcement-rows"></tbody></table></div></article>
+            </section>
+            <section class="admin-page-panel" data-panel="academic" hidden>
+              <p class="admin-page-description">Maintain shared course and unit reference data, calendar periods, and grading ranges.</p>
+              <div class="admin-academic-grid">
+                <article class="admin-section"><h2>Add course</h2><form class="admin-form admin-inline-form" id="course-form"><label>Course name<input name="name" maxlength="120" required></label><button class="admin-logout">Add course</button></form></article>
+                <article class="admin-section"><h2>Add unit</h2><form class="admin-form admin-grid-form" id="unit-form"><label>Course<input name="course" required></label><label>Unit code<input name="code" required></label><label>Unit name<input name="name" required></label><label>Year<input name="yearOfStudy" type="number" min="1" max="10" required></label><label>Semester<input name="semester" required></label><label>Credit hours<input name="creditHours" type="number" min="0" step="0.5"></label><button class="admin-logout">Add unit</button></form></article>
+                <article class="admin-section"><h2>Import units CSV</h2><p>Columns: course, code, name, year, semester, credit hours.</p><form id="academic-csv-form"><label class="admin-file-input">Choose CSV<input type="file" id="academic-csv-file" accept=".csv,text/csv" required></label><button class="admin-logout">Import CSV</button></form></article>
+                <article class="admin-section"><h2>Add academic calendar period</h2><form class="admin-form admin-grid-form" id="calendar-form"><label>Title<input name="title" required></label><label>Type<select name="type"><option>Semester</option><option>Holiday</option><option>Exam week</option></select></label><label>Semester<input name="semester"></label><label>Start<input name="startDate" type="date" required></label><label>End<input name="endDate" type="date" required></label><button class="admin-logout">Add period</button></form></article>
+                <article class="admin-section"><h2>Grading scale</h2><form class="admin-form admin-grid-form" id="grading-form"><label>Grade label<input name="label" required></label><label>Minimum score<input name="minimumScore" type="number" min="0" max="100" required></label><label>Maximum score<input name="maximumScore" type="number" min="0" max="100" required></label><button class="admin-logout">Add grade</button></form></article>
+              </div>
+              <article class="admin-section"><h2>Courses and units</h2><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Course</th><th>Code</th><th>Unit</th><th>Year</th><th>Semester</th><th>Credits</th></tr></thead><tbody id="academic-rows"></tbody></table></div><div id="academic-calendar-list" class="admin-data-list"></div><div id="grading-list" class="admin-data-list"></div></article>
+            </section>
+            <section class="admin-page-panel" data-panel="storage" hidden>
+              <p class="admin-page-description">Review storage totals and file metadata only. File contents and previews are never available in the admin console.</p>
+              <article class="admin-section"><h2>Storage by student</h2><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Email</th><th>School</th><th>Used</th><th>Quota</th><th>Usage</th></tr></thead><tbody id="storage-students"></tbody></table></div></article>
+              <article class="admin-section"><h2>Stored file metadata</h2><p>Files above 80% of quota are flagged in the student table.</p><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Owner</th><th>File name</th><th>Type</th><th>Size</th><th>Uploaded</th><th>Action</th></tr></thead><tbody id="storage-files"></tbody></table></div></article>
+            </section>
+            <section class="admin-page-panel" data-panel="audit" hidden>
+              <p class="admin-page-description">Administrator actions and sign-ins. Exports are logged. Use the all-session action to revoke current admin sessions.</p>
+              <div class="admin-actions"><a class="admin-logout admin-action-link" href="/api/admin/audit?format=csv">Export audit CSV</a><button class="admin-logout" id="admin-logout-all" type="button">Sign out all admin sessions</button></div>
+              <article class="admin-section"><h2>Filter audit log</h2><label>Search admin, action, or target<input id="audit-search" type="search" maxlength="120"></label><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Admin</th><th>Action</th><th>Target</th><th>Time</th></tr></thead><tbody id="audit-rows"></tbody></table></div></article>
+              <article class="admin-section"><h2>Administrator sign-in history</h2><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Admin</th><th>IP address</th><th>Time</th></tr></thead><tbody id="admin-signins"></tbody></table></div></article>
+            </section>
+            <section class="admin-page-panel" data-panel="data" hidden>
+              <p class="admin-page-description">Download account metadata and a sanitized SQLite backup. Backups omit password hashes, salts, private file contents, and avatar contents; accounts need password resets if restored.</p>
+              <div class="admin-data-actions"><a class="admin-data-action" href="/api/admin/students.csv"><strong>Students CSV</strong><span>Account and academic profile metadata</span></a><a class="admin-data-action" href="/api/admin/report.pdf"><strong>PDF overview report</strong><span>Counts, storage, and activity summary</span></a><a class="admin-data-action" href="/api/admin/backup"><strong>Sanitized database backup</strong><span>Private blobs and password verification secrets are removed</span></a></div>
+            </section>
+            <footer class="admin-console-footer">Passwords, password hashes, and private file contents are never displayed in the console.</footer>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

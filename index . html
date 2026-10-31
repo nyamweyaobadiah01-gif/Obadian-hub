@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Media Practice</title>
+</head>
+<body>
+  <h1>Media Practice</h1>
+
+</body>
+</html>
+  <h2>Audio</h2>
+  <audio src="song.mp3" controls></audio>

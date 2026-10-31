@@ -1,0 +1,22 @@
+[Unit]
+Description=Obadian Hub application
+After=network.target
+
+[Service]
+Type=simple
+User=obadianhub
+Group=obadianhub
+WorkingDirectory=/opt/obadian-hub/current
+EnvironmentFile=/etc/obadian-hub/obadian-hub.env
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/obadian-hub
+
+[Install]
+WantedBy=multi-user.target

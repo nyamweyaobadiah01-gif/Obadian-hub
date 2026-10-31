@@ -1,0 +1,15 @@
+{
+  "name": "obadian-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A dark, responsive Obadian Hub workspace with secure email authentication.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "dependencies": {
+    "pdf-parse": "^2.4.5"
+  }
+}

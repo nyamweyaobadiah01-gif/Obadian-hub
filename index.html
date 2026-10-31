@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101116">
+    <meta name="description" content="Sign in to your Obadian Hub workspace.">
+    <title>Obadian Hub — Your workspace</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main class="auth-layout" id="auth-view">
+      <section class="auth-intro" aria-label="About Obadian Hub">
+        <a class="brand" href="/" aria-label="Obadian Hub home">
+          <span class="brand-mark">O</span>
+          <span>obadian<span class="brand-light">hub</span></span>
+        </a>
+        <div class="intro-copy">
+          <span class="eyebrow"><span class="status-dot"></span> YOUR SPACE TO DO GREAT WORK</span>
+          <h1>Good work<br>starts <span>together.</span></h1>
+          <p>A calmer space for your team, your ideas, and everything you’re building.</p>
+        </div>
+        <div class="intro-footer"><span class="footer-line"></span> A little more focus. A lot more possibility.</div>
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+      </section>
+
+      <section class="auth-panel">
+        <div class="auth-card">
+          <div class="mobile-brand brand">
+            <span class="brand-mark">O</span><span>obadian<span class="brand-light">hub</span></span>
+          </div>
+          <div class="card-heading">
+            <span class="eyebrow" id="form-eyebrow">WELCOME BACK</span>
+            <h2 id="form-title">Sign in to your hub</h2>
+            <p id="form-description">Enter your email and password to continue.</p>
+          </div>
+          <div class="notice" id="notice" role="status" aria-live="polite" hidden></div>
+          <form id="auth-form">
+            <label for="email">Email address</label>
+            <div class="input-wrap">
+              <span class="input-icon" aria-hidden="true">@</span>
+              <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+            </div>
+            <div class="label-row">
+              <label for="password">Password</label>
+              <span class="password-hint" id="password-hint" hidden>At least 10 characters</span>
+              <span class="password-hint" id="password-strength" aria-live="polite" hidden></span>
+            </div>
+            <div class="input-wrap">
+              <span class="input-icon lock-icon" aria-hidden="true"></span>
+              <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" maxlength="128" required>
+              <button class="password-toggle" id="password-toggle" type="button" aria-label="Show password">Show</button>
+            </div>
+            <label class="remember-row" for="remember-me"><input id="remember-me" name="rememberMe" type="checkbox"> Remember me on this device</label>
+            <button class="text-button forgot-password-button" id="forgot-password" type="button">Forgot password?</button>
+            <label class="agreement-row" id="agreement-row" for="agree-to-policies" hidden>
+              <input id="agree-to-policies" name="agreeToPolicies" type="checkbox" disabled>
+              <span class="agreement-check" aria-hidden="true"></span>
+              <span>I agree to the <a href="/policies#terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="/policies#privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+            </label>
+            <button class="primary-button" id="submit-button" type="submit">
+              <span id="submit-label">Sign in</span><span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+          </form>
+          <p class="switch-copy"><span id="switch-prompt">New to Obadian Hub?</span>
+            <button class="text-button" id="switch-mode" type="button">Create an account</button>
+          </p>
+          <button class="text-button resend-verification-button" id="resend-verification" type="button" hidden>Resend verification email</button>
+          <div class="card-foot"><span class="secure-mark" aria-hidden="true">✓</span> Your workspace is private and secure.</div>
+          <div class="admin-entry"><a href="/admin">Administrator sign-in <span>→</span></a></div>
+        </div>
+        <div class="panel-footer">© <span id="year"></span> Obadian Hub</div>
+      </section>
+    </main>
+
+    <main class="dashboard" id="dashboard-view" hidden>
+      <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" aria-label="Close navigation menu" aria-hidden="true" tabindex="-1"></button>
+      <aside class="sidebar" id="dashboard-sidebar" aria-label="Dashboard sidebar">
+        <a class="brand sidebar-brand" href="#overview" aria-label="Obadian Hub home"><span class="brand-mark">O</span><span>obadian<span class="brand-light">hub</span></span></a>
+        <div class="workspace-label">YOUR SPACE</div>
+        <nav class="side-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#overview" data-view="overview" title="Home"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-label">Home</span></a>
+          <a class="nav-link" href="#schedule" data-view="schedule" title="Schedule"><span class="nav-icon" aria-hidden="true">▦</span><span class="nav-label">Schedule</span></a>
+          <a class="nav-link" href="#academics" data-view="academics" title="Academic year &amp; units"><span class="nav-icon" aria-hidden="true">▣</span><span class="nav-label">Academic year &amp; units</span></a>
+          <a class="nav-link" href="#files" data-view="files" title="School files"><span class="nav-icon" aria-hidden="true">▤</span><span class="nav-label">School files</span></a>
+          <a class="nav-link" href="#inbox" data-view="inbox" title="Notifications &amp; messages"><span class="nav-icon" aria-hidden="true">♧</span><span class="nav-label">Notifications &amp; messages</span><span class="nav-count" id="inbox-count">0</span></a>
+          <a class="nav-link" href="#settings" data-view="settings" title="Settings &amp; privacy"><span class="nav-icon" aria-hidden="true">⚙</span><span class="nav-label">Settings &amp; privacy</span></a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="help-card"><span class="help-spark" aria-hidden="true">✳</span><strong>Need a hand?</strong><p>Contact Obadian Hub support.</p><a href="mailto:nyamweyaobadiah01@gmail.com" title="Email Obadian Hub support">Email support <span>→</span></a></div>
+          <button class="profile-button" id="logout-button" type="button" aria-label="Sign out of Obadian Hub"><span class="avatar" id="avatar">O</span><span class="profile-text"><strong id="profile-email">Your account</strong><small id="profile-email-address"></small></span><span class="logout-icon" aria-hidden="true">↗</span></button>
+        </div>
+      </aside>
+      <section class="dashboard-main">
+        <header class="topbar"><button class="menu-toggle" id="sidebar-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="dashboard-sidebar" title="Open navigation menu"><span></span><span></span><span></span></button><div class="breadcrumbs">Obadian Hub <span>/</span> <strong id="breadcrumb-current">Home</strong></div><div class="topbar-actions"><label class="global-search"><span aria-hidden="true">⌕</span><input id="global-search-input" type="search" placeholder="Search units, timetable, schedule, files" aria-label="Search units, timetable, schedule, and files" autocomplete="off"><span class="search-shortcut">/</span><div class="search-results" id="global-search-results" role="listbox" hidden></div></label><span class="today-label" id="today-label"></span><button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Switch to light mode">☼ Light mode</button><span class="topbar-avatar" id="topbar-avatar">O</span></div></header>
+        <div class="dashboard-content">
+          <section class="announcement-banner" id="announcement-banner" aria-label="Administrator announcements" aria-live="polite" hidden>
+            <div class="announcement-banner-heading"><span aria-hidden="true">✦</span><strong>From Obadian Hub</strong><button class="subtle-button" type="button" data-open-view="inbox">View inbox →</button></div>
+            <div class="announcement-banner-list" id="announcement-banner-list"></div>
+          </section>
+          <section class="hub-view" id="view-overview">
+            <div class="welcome-row"><div><span class="eyebrow" id="greeting-label">YOUR PERSONAL HUB</span><h1 id="welcome-title">Good day</h1><p>Keep your school plans and important files together.</p></div><button class="new-project-button" type="button" data-open-view="schedule"><span>＋</span> Add to schedule</button></div>
+            <section class="stats-grid" aria-label="Workspace overview">
+              <article class="stat-card"><div class="stat-heading"><span>Activities today</span><span class="stat-icon violet">▦</span></div><div class="stat-number" id="today-total">0</div><div class="stat-note" id="today-note">Classes and study sessions</div></article>
+              <article class="stat-card"><div class="stat-heading"><span>Due this week</span><span class="stat-icon blue">◷</span></div><div class="stat-number" id="week-total">0</div><div class="stat-note">Upcoming activities</div></article>
+              <article class="stat-card"><div class="stat-heading"><span>School files</span><span class="stat-icon green">▤</span></div><div class="stat-number" id="files-total">0</div><div class="stat-note" id="files-note">Documents, images &amp; videos</div></article>
+            </section>
+            <section class="content-card exam-countdown-card"><div class="section-heading"><div><h2>Exam countdown</h2><p>Your next confirmed exams, in Africa/Nairobi time.</p></div><button class="subtle-button" type="button" data-open-view="academics">Manage timetables →</button></div><div class="exam-countdown-list" id="exam-countdowns" aria-live="polite"></div></section>
+            <div class="dashboard-columns">
+              <section class="content-card"><div class="section-heading"><div><h2>Coming up</h2><p>Your next saved activities.</p></div><button class="subtle-button" type="button" data-open-view="schedule">Open calendar →</button></div><div class="item-list" id="upcoming-preview"></div></section>
+              <section class="content-card"><div class="section-heading"><div><h2>Recently opened</h2><p>Pick up where you left off.</p></div><button class="subtle-button" type="button" data-open-view="files">Open files →</button></div><div class="item-list" id="recent-files-preview"></div></section>
+              <section class="content-card"><div class="section-heading"><div><h2>Quick links</h2><p>Jump into your personal hub.</p></div></div><div class="quick-link-list"><button type="button" data-open-view="files">📁 Organize school files</button><button type="button" data-open-view="inbox">✉ Contact the administrator</button><button type="button" data-open-view="settings">⚙ Account and privacy details</button></div></section>
+            </div>
+            <section class="content-card support-card"><h2>Need support?</h2><p>Call <a href="tel:0708590547">0708590547</a> or email <a href="mailto:nyamweyaobadiah01@gmail.com">nyamweyaobadiah01@gmail.com</a>.</p></section>
+          </section>
+          <section class="hub-view" id="view-schedule" hidden>
+            <div class="view-heading"><div><span class="eyebrow">PLAN YOUR DAYS</span><h1>My schedule</h1><p>Add classes, study sessions, deadlines, and reminders.</p></div></div>
+            <div class="dashboard-columns schedule-columns">
+              <section class="content-card"><div class="section-heading"><div><h2 id="schedule-form-heading">Add an activity</h2><p>Set a unit, activity type, repeat, and optional reminder.</p></div></div>
+                <form class="hub-form" id="schedule-form"><label for="schedule-title">Activity</label><input id="schedule-title" name="title" maxlength="120" placeholder="e.g. Mathematics revision" required><label for="schedule-date">Date and time</label><input id="schedule-date" name="date" type="datetime-local" required><label for="schedule-unit">Academic unit (optional)</label><select id="schedule-unit" name="unitId"><option value="">No unit selected</option></select><label for="schedule-category">Activity type</label><select id="schedule-category" name="category"><option>Class</option><option>Study</option><option>Exam</option><option>Assignment</option><option>Personal</option><option selected>General</option></select><label for="schedule-repeat">Repeat</label><select id="schedule-repeat" name="repeat"><option value="none">Does not repeat</option><option value="daily">Every day</option><option value="weekly">Every week</option><option value="monthly">Every month</option></select><label for="schedule-reminder">Browser reminder</label><select id="schedule-reminder" name="reminderMinutes"><option value="0">No reminder</option><option value="5">5 minutes before</option><option value="10">10 minutes before</option><option value="15">15 minutes before</option><option value="30">30 minutes before</option><option value="60">1 hour before</option></select><label for="schedule-details">Notes (optional)</label><textarea id="schedule-details" name="details" maxlength="500" rows="3" placeholder="Room, topic, or other details"></textarea><div class="form-actions"><button class="new-project-button" id="schedule-submit" type="submit">Save activity</button><button class="item-action" id="schedule-cancel" type="button" hidden>Cancel edit</button></div></form>
+              </section>
+              <section class="content-card calendar-card"><div class="section-heading"><div><h2>Calendar</h2><p>Exam dates appear here; drag activities to reschedule them.</p></div></div><div class="calendar-toolbar"><button class="calendar-step" id="calendar-prev" type="button" aria-label="Previous month">‹</button><strong id="calendar-month">Month YYYY</strong><button class="calendar-step" id="calendar-next" type="button" aria-label="Next month">›</button></div><div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-grid" id="calendar-grid"></div><div class="section-heading schedule-list-heading"><div><h2>All activities</h2></div></div><div class="item-list" id="schedule-list"></div></section>
+            </div>
+          </section>
+          <section class="hub-view" id="view-academics" hidden>
+            <div class="view-heading"><div><span class="eyebrow">YOUR STUDY PROGRAMME</span><h1>Academic year &amp; units</h1><p>Set your year and semester, organize your units, and keep a record of class attendance.</p></div></div>
+            <div class="dashboard-columns academic-columns">
+              <section class="content-card"><div class="section-heading"><div><h2>Current academic period</h2><p>For example, academic year 2026/2027 and Semester 1.</p></div></div><form class="hub-form" id="academic-settings-form"><label for="year-of-study-input">Year of study</label><input id="year-of-study-input" name="yearOfStudy" type="number" min="0" max="12" step="1" value="0" required><label for="academic-year-input">Academic year</label><input id="academic-year-input" name="academicYear" maxlength="40" placeholder="e.g. 2026/2027"><label for="academic-semester-input">Semester or term</label><input id="academic-semester-input" name="semester" maxlength="60" placeholder="e.g. Semester 1"><button class="new-project-button" type="submit">Save academic period</button></form></section>
+              <section class="content-card"><div class="section-heading"><div><h2 id="unit-form-heading">Add a unit</h2><p>Add the courses or units you are undertaking this period.</p></div></div><form class="hub-form" id="unit-form"><label for="unit-code-input">Unit code</label><input id="unit-code-input" name="code" maxlength="24" placeholder="e.g. GEO 411" required><label for="unit-title-input">Unit name</label><input id="unit-title-input" name="title" maxlength="120" placeholder="e.g. Environment Management" required><label for="unit-instructor-input">Lecturer or instructor (optional)</label><input id="unit-instructor-input" name="instructor" maxlength="80" placeholder="Instructor name"><div class="form-actions"><button class="new-project-button" id="unit-submit" type="submit">Add unit</button><button class="item-action" id="unit-cancel" type="button" hidden>Cancel edit</button></div></form><div class="academic-unit-list item-list" id="academic-unit-list" aria-live="polite"></div></section>
+            </div>
+            <section class="content-card timetable-card"><div class="section-heading"><div><h2>Class timetable</h2><p>Upload a PDF (10 MB max). Check the extracted rows and confirm before they replace your saved classes.</p></div></div><form class="hub-form timetable-upload-form" id="class-timetable-upload"><label for="class-timetable-file">Class timetable PDF</label><input id="class-timetable-file" name="file" type="file" accept="application/pdf,.pdf" required><button class="new-project-button" type="submit">Read class timetable</button></form><p class="form-help">Scanned PDFs may not contain readable text; you can add rows manually after parsing.</p><div class="item-list timetable-saved-list" id="class-sessions-list"></div><div class="timetable-review" id="class-timetable-review" hidden></div></section>
+            <section class="content-card timetable-card"><div class="section-heading"><div><h2>Exam timetable</h2><p>Upload a PDF, review dates and venues, then confirm to see live countdowns.</p></div></div><form class="hub-form timetable-upload-form" id="exam-timetable-upload"><label for="exam-timetable-file">Exam timetable PDF</label><input id="exam-timetable-file" name="file" type="file" accept="application/pdf,.pdf" required><button class="new-project-button" type="submit">Read exam timetable</button></form><p class="form-help">Exam dates and times use Africa/Nairobi time. Missing values can stay TBC.</p><div class="item-list timetable-saved-list" id="exam-sessions-list"></div><div class="timetable-review" id="exam-timetable-review" hidden></div></section>
+            <section class="content-card attendance-card"><div class="section-heading"><div><h2>Class attendance</h2><p id="attendance-period-label">Record each class and review your attendance rate for the current period.</p></div></div><div class="attendance-summary" id="attendance-summary" aria-live="polite"></div><form class="hub-form attendance-form" id="attendance-form"><label for="attendance-unit">Unit</label><select id="attendance-unit" name="unitId" required><option value="">Add a unit first</option></select><label for="attendance-date">Class date</label><input id="attendance-date" name="sessionDate" type="date" required><label for="attendance-status">Attendance</label><select id="attendance-status" name="status"><option value="present">Present</option><option value="absent">Absent</option><option value="late">Late</option><option value="excused">Excused</option></select><label for="attendance-notes">Notes (optional)</label><input id="attendance-notes" name="notes" maxlength="500" placeholder="e.g. Lecture, practical, or reason"><div class="form-actions"><button class="new-project-button" id="attendance-submit" type="submit">Record attendance</button><button class="item-action" id="attendance-cancel" type="button" hidden>Cancel edit</button></div></form><div class="item-list attendance-list" id="attendance-list"></div></section>
+          </section>
+          <section class="hub-view" id="view-files" hidden>
+            <div class="view-heading"><div><span class="eyebrow">YOUR PRIVATE LIBRARY</span><h1>School files</h1><p>Store school documents, images, and videos in named folders.</p></div></div>
+            <section class="content-card"><form class="hub-form upload-form" id="upload-form"><label for="file-input">Choose a supported file (up to 20 MB each)</label><input id="file-input" name="file" type="file" accept=".pdf,.txt,.doc,.docx,.ppt,.pptx,image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm,video/quicktime" required><label for="file-folder">Folder (optional)</label><input id="file-folder" name="folder" maxlength="60" placeholder="e.g. Biology notes"><p class="form-help">Supported: PDF, TXT, Word, PowerPoint, JPG, PNG, GIF, WebP, MP4, WebM, MOV.</p><button class="new-project-button" type="submit">Upload file</button></form></section>
+            <section class="content-card files-card"><div class="section-heading"><div><h2>Your library</h2><p>Only you can access your stored files.</p></div><label class="filter-label" for="folder-filter">Folder<select id="folder-filter"><option value="">All folders</option></select></label></div><label class="file-search-label" for="file-search-input">Search files</label><input id="file-search-input" class="file-search-input" type="search" placeholder="Search by file or folder name"><div class="storage-meter"><div class="storage-caption"><strong id="storage-label">0 B of 500 MB used</strong><span id="storage-percent">0%</span></div><div class="storage-track" role="progressbar" aria-label="File storage used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="storage-fill"></span></div></div><div class="item-list" id="files-list"></div></section>
+          </section>
+          <section class="hub-view" id="view-inbox" hidden>
+            <div class="view-heading"><div><span class="eyebrow">STAY IN TOUCH</span><h1>Notifications &amp; messages</h1><p>Read updates from your administrator or send them a message.</p></div></div>
+            <div class="dashboard-columns">
+              <section class="content-card"><div class="section-heading"><div><h2>Your inbox</h2><p>Administrator notifications and replies, plus browser reminders.</p></div></div><button class="item-action" id="enable-reminders" type="button">Enable browser reminders</button><div class="item-list" id="inbox-list"></div></section>
+              <section class="content-card"><div class="section-heading"><div><h2>Contact the admin</h2><p>We’ll deliver your message securely.</p></div></div><form class="hub-form" id="message-form"><label for="support-message">Your message</label><textarea id="support-message" name="message" rows="5" maxlength="1000" placeholder="How can we help?" required></textarea><button class="new-project-button" type="submit">Send message</button></form><p class="support-contact">Call <a href="tel:0708590547">0708590547</a> or email <a href="mailto:nyamweyaobadiah01@gmail.com">nyamweyaobadiah01@gmail.com</a>.</p></section>
+            </div>
+          </section>
+          <section class="hub-view" id="view-settings" hidden>
+            <div class="view-heading"><div><span class="eyebrow">YOUR ACCOUNT</span><h1>Settings &amp; privacy</h1><p>Review your account information and how this demo stores it.</p></div></div>
+            <section class="content-card settings-card"><h2>Profile</h2><p>Update the details shown in your personal hub.</p><div class="avatar-settings"><img id="profile-photo-preview" alt="Your profile photo" hidden><form class="hub-form" id="avatar-form"><label for="avatar-input">Profile photo (PNG, JPG, or WebP; up to 2 MB)</label><input id="avatar-input" name="avatar" type="file" accept="image/png,image/jpeg,image/webp"><div class="form-actions"><button class="new-project-button" type="submit">Upload photo</button><button class="item-action" id="remove-avatar" type="button">Remove photo</button></div></form></div><form class="hub-form profile-form" id="profile-form"><label for="profile-name-input">Display name</label><input id="profile-name-input" name="profileName" maxlength="80" autocomplete="name"><label for="profile-phone-input">Phone</label><input id="profile-phone-input" name="phone" maxlength="40" type="tel" autocomplete="tel"><label for="profile-school-input">School</label><input id="profile-school-input" name="school" maxlength="120"><label for="profile-course-input">Course</label><input id="profile-course-input" name="course" maxlength="120"><button class="new-project-button" type="submit">Save profile</button></form><dl><div><dt>Email address</dt><dd id="settings-email">—</dd></div><div><dt>Email verification</dt><dd id="settings-verified">—</dd></div><div><dt>Account created</dt><dd id="settings-created">—</dd></div></dl><h2>Change password</h2><p>Use a unique password with at least 10 characters.</p><form class="hub-form profile-form" id="change-password-form"><label for="current-password-input">Current password</label><input id="current-password-input" name="currentPassword" type="password" autocomplete="current-password" maxlength="128" required><label for="new-password-input">New password</label><input id="new-password-input" name="newPassword" type="password" autocomplete="new-password" minlength="10" maxlength="128" required><span class="password-hint" id="change-password-strength" aria-live="polite"></span><button class="new-project-button" type="submit">Change password</button></form><h2>Appearance</h2><p>Choose the theme for this browser.</p><button class="admin-logout settings-theme-toggle" id="theme-toggle-settings" type="button">Switch to light mode</button><h2 class="privacy-heading">Privacy center</h2><p>Your schedule, profile, profile photo, and uploaded files are stored in the workspace database and associated with your account. Your password is stored as a one-way hash, never as plain text. Email verification and password reset links are sent via Resend when email delivery is configured. The administrator can view account activity and messages sent to support, but cannot see your password or private file contents. Deleting your account removes your workspace and profile data.</p><a class="policy-link" href="/policies#privacy" target="_blank" rel="noopener">Read the Privacy Policy</a><div class="settings-actions"><h2>Delete account and data</h2><p>This permanently removes your account, schedule, files, messages, profile photo, and account activity.</p><form class="hub-form profile-form" id="delete-account-form"><label for="delete-account-password">Confirm your password</label><input id="delete-account-password" name="password" type="password" autocomplete="current-password" required><button class="admin-logout danger-action" type="submit">Delete my account and data</button></form><button class="admin-logout" id="settings-logout" type="button">Log out</button></div></section>
+          </section>
+          <footer class="dashboard-footer">Obadian Hub <span>✳</span></footer>
+        </div>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <dialog class="welcome-dialog" id="welcome-dialog" aria-labelledby="welcome-dialog-title">
+      <button class="welcome-close" id="welcome-close" type="button" aria-label="Close welcome message">×</button>
+      <div class="welcome-art" aria-hidden="true"><span class="welcome-orbit"></span><span class="welcome-star">✳</span><span class="welcome-spark spark-one">✦</span><span class="welcome-spark spark-two">✧</span><span class="welcome-spark spark-three">·</span></div>
+      <span class="eyebrow">YOUR SPACE IS READY</span>
+      <h2 id="welcome-dialog-title">Welcome to<br><span>Obadian Hub!</span></h2>
+      <p>A fresh space for your ideas, your plans, and everything you’re ready to make happen.</p>
+      <button class="primary-button welcome-continue" id="welcome-continue" type="button">Let’s get started <span class="button-arrow" aria-hidden="true">→</span></button>
+    </dialog>
+    <dialog class="file-preview-dialog" id="file-preview-dialog" aria-labelledby="file-preview-title">
+      <div class="preview-heading"><div><span class="eyebrow">PRIVATE FILE PREVIEW</span><h2 id="file-preview-title">File preview</h2></div><button class="welcome-close" id="file-preview-close" type="button" aria-label="Close preview">×</button></div>
+      <div class="file-preview-content" id="file-preview-content"></div>
+    </dialog>
+    <dialog class="file-preview-dialog file-edit-dialog" id="file-edit-dialog" aria-labelledby="file-edit-title">
+      <div class="preview-heading"><div><span class="eyebrow">ORGANIZE YOUR LIBRARY</span><h2 id="file-edit-title">Rename or move file</h2></div><button class="welcome-close" id="file-edit-close" type="button" aria-label="Close file editor">×</button></div>
+      <form class="hub-form" id="file-edit-form"><input id="file-edit-id" name="id" type="hidden"><label for="file-edit-name">File name</label><input id="file-edit-name" name="name" maxlength="180" required><label for="file-edit-folder">Folder</label><input id="file-edit-folder" name="folder" maxlength="60" placeholder="Leave blank for no folder"><div class="form-actions"><button class="new-project-button" type="submit">Save file details</button><button class="item-action" id="file-edit-close-secondary" type="button">Cancel</button></div></form>
+    </dialog>
+    <dialog class="file-preview-dialog recovery-dialog" id="recovery-dialog" aria-labelledby="recovery-title">
+      <div class="preview-heading"><div><span class="eyebrow">ACCOUNT SECURITY</span><h2 id="recovery-title">Reset your password</h2></div><button class="welcome-close" id="recovery-close" type="button" aria-label="Close password recovery">×</button></div>
+      <div class="notice recovery-notice" id="recovery-notice" role="status" aria-live="polite" hidden></div>
+      <form class="hub-form" id="forgot-password-form"><p class="form-help">Enter your email address and we’ll send a secure password reset link if an account matches.</p><label for="forgot-email">Email address</label><input id="forgot-email" name="email" type="email" maxlength="254" autocomplete="email" required><button class="new-project-button" type="submit">Send reset link</button></form>
+      <form class="hub-form" id="reset-password-form" hidden><input name="token" type="hidden"><p class="form-help">Choose a new password with at least 10 characters.</p><label for="reset-password-input">New password</label><input id="reset-password-input" name="password" type="password" minlength="10" maxlength="128" autocomplete="new-password" required><span class="password-hint" id="reset-password-strength" aria-live="polite"></span><button class="new-project-button" type="submit">Save new password</button></form>
+    </dialog>
+  </body>
+</html>
